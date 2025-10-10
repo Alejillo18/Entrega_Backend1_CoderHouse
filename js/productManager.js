@@ -33,7 +33,7 @@ export default class ProductManager{
 
     async getProductsByPid(pid){
         try{
-            const {productos} = (await this.getProducts()).productos
+            const {productos} = (await this.getProducts())
             const encontrado = productos.find(p => p.id === pid)
             if (!encontrado) throw new Error(`No se encontró un producto con id ${pid}`);
             return {state:true, encontrado}
