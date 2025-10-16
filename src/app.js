@@ -1,11 +1,11 @@
-import  ProductManager  from "./js/productManager.js";
-import  CartManager  from "./js/cartManager.js";
-import Product from "./js/product.js";
-import { Cart, PAndQuantity } from "./js/cart.js";
+import  ProductManager  from "./productManager.js";
+import  CartManager  from "./cartManager.js";
+import Product from "./product.js";
+import { Cart, PAndQuantity } from "./cart.js";
 import express from "express"
 
-const cartManager =  new CartManager("./archivos/carts.json");
-const productManager = new ProductManager("./archivos/products.json");
+const cartManager =  new CartManager("./src/archivos/carts.json");
+const productManager = new ProductManager("./src/archivos/products.json");
 
 
 const app = express();
