@@ -1,153 +1,121 @@
-import  ProductManager  from "./productManager.js";
-import  CartManager  from "./cartManager.js";
-import Product from "./product.js";
-import { Cart, PAndQuantity } from "./cart.js";
-import express from "express"
+import ProductManager from "./productManager.js";
+import CartManager from "./cartManager.js";
+import express from "express";
 
-const cartManager =  new CartManager("./src/archivos/carts.json");
-const productManager = new ProductManager("./src/archivos/products.json");
-
+const cartManager = new CartManager("./src/carts.json");
+const productManager = new ProductManager("./src/products.json");
 
 const app = express();
 app.use(express.json());
 
-
-//MANEJO DE PRODUCTOS
-
-app.get("/api/products/", async (req,res)=>{
-    try{
-        const productos = await productManager.getProducts()
-        res.status(200).json({state: true, productos, mesagge: "Lista de productos"})
-    }
-    catch(error){
-        res.status(500).json({state: false, message: error.message})
-    }
-})
-app.get("/api/products/:pid", async (req,res)=>{
-    try{
-        const pid = req.params.pid;
-        const producto = await productManager.getProductsByPid(pid)
-        res.status(200).json({state: true, producto, mesagge: `Producto con PID: ${pid}`})
-    }
-    catch(error){
-        res.status(500).json({state: false, messagge: error.message})
-    }
-})
-
-
-app.post("/api/products/",async (req,res)=>{
-    try{
-        const producto = new Product(req.body);
-        await productManager.addProduct(producto);
-        res.status(201).json({state: true, producto, message: `Producto Agregado: ${producto.title}`})
-    }
-    catch(error){
-        res.status(500).json({state: false, message: error.message})
-    }
-})
-
-
-app.put("/api/products/:pid", async (req,res)=>{
-    try{
-        const pid = req.params.pid;
-        const updates = req.body;
-        const producto = (await productManager.updateProduct(pid,updates)).productoActualizado;
-        res.status(200).json({state: true, producto, message: `Producto Actualizado: ${producto.title}`})
-    }
-    catch(error){
-        res.status(500).json({state: false, message: error.message})
-    }
-})
-
-
-app.delete("/api/products/:pid", async (req,res)=>{
-    try{
-        const pid = req.params.pid;
-        const producto = (await productManager.deleteProduct(pid)).deleteP;
-        res.status(200).json({state: true, producto, message: `Producto Eliminado`})
-    }
-    catch(error){
-        res.status(500).json({state: false, message: error.message})
-    }
-})
-
-
-//MANEJO DE CARRITOS
-
-app.get("/api/carts", async (req,res)=>{
-    try{
-        const carritos = await cartManager.getC();
-        res.status(200).json({state: true, carritos, message: "Lista de carritos"})
-    }
-    catch(error){
-        res.status(500).json({state: false, message: error.message})
-    }
+app.get("/api/products/", async (req, res) => {
+  try {
+    const { productos } = await productManager.getProducts();
+    return res.status(200).json({ state: true, productos, mesagge: "Lista de productos" });
+  } catch (error) {
+    return res.status(500).json({ state: false, message: error.message });
+  }
 });
 
-
-app.get("/api/carts/:cid", async (req,res)=>{
-    try{
-        const cid = req.params.cid;
-        const carrito = (await cartManager.getCID(cid)).encontrado;
-        res.status(200).json({state: true, carrito: carrito.products, message: "Lista de carritos"})
+app.get("/api/products/:pid", async (req, res) => {
+  try {
+    const pid = req.params.pid;
+    const { encontrado } = await productManager.getProductsByPid(pid);
+    return res.status(200).json({ state: true, producto: encontrado, mesagge: `Producto con PID: ${pid}` });
+  } catch (error) {
+    if (error.message.includes("No se encontró")) {
+      return res.status(404).json({ state: false, message: error.message });
     }
-    catch(error){
-        res.status(500).json({state: false, message: error.message})
-    }
+    return res.status(500).json({ state: false, message: error.message });
+  }
 });
 
-app.post("/api/carts/", async (req,res)=>{
-    try{
-        const products = req.body.products;
-        if(!products) throw new Error("No hay productos en el carrito")
-        const carro = products.map(p => p = new PAndQuantity(p))
-        const carritos = (await cartManager.addC(new Cart(carro))).carritos
-        res.status(201).json({state:true, carritos, message: "Carrito agregado"})
+app.post("/api/products/", async (req, res) => {
+  try {
+    const producto = req.body;
+    await productManager.addProduct(producto);
+    return res.status(201).json({ state: true, producto, message: `Producto Agregado: ${producto.title}` });
+  } catch (error) {
+    if (error.message.includes("validar producto") || error.message.includes("El producto debe ser un objeto válido")) {
+      return res.status(400).json({ state: false, message: error.message });
     }
-    catch(error){
-        res.status(500).json({state: false, message: error.message})
+    return res.status(500).json({ state: false, message: error.message });
+  }
+});
+
+app.put("/api/products/:pid", async (req, res) => {
+  try {
+    const pid = req.params.pid;
+    const updates = req.body;
+    const producto = (await productManager.updateProduct(pid, updates)).productoActualizado;
+    return res.status(200).json({ state: true, producto, message: `Producto Actualizado: ${producto.title}` });
+  } catch (error) {
+    if (error.message.includes("validar actualizaciones") || error.message.includes("objeto válido")) {
+      return res.status(400).json({ state: false, message: error.message });
+    } else if (error.message.includes("No se encontró ningun producto")) {
+      return res.status(404).json({ state: false, message: error.message });
     }
-})
+    return res.status(500).json({ state: false, message: error.message });
+  }
+});
 
-
-app.post("/api/carts/:cid/product/:pid", async (req,res)=>{
-    try{
-        const cid = req.params.cid;
-        const pid = req.params.pid;
-        const carritos = (await cartManager.addQuantity(cid,pid)).carritos
-        res.status(200).json({state: true,carritos, message: `Se agrego el producto ${pid} al carrito ${cid}`})
+app.delete("/api/products/:pid", async (req, res) => {
+  try {
+    const pid = req.params.pid;
+    const producto = (await productManager.deleteProduct(pid)).deleteP;
+    return res.status(200).json({ state: true, producto, message: "Producto Eliminado" });
+  } catch (error) {
+    if (error.message.includes("No se pudo eliminar ningun producto")) {
+      return res.status(404).json({ state: false, message: error.message });
     }
-    catch(error){
-        res.status(500).json({state: false, message: error.message})
-    }
-})
+    return res.status(500).json({ state: false, message: error.message });
+  }
+});
 
-app.listen(8080, ()=>{
-    console.log("Servidor iniciado en el puerto 8080")
-})
+app.get("/api/carts", async (req, res) => {
+  try {
+    const {carritos} = await cartManager.getC();
+    return res.status(200).json({ state: true, carritos, message: "Lista de carritos" });
+  } catch (error) {
+    return res.status(500).json({ state: false, message: error.message });
+  }
+});
 
-//Testeamos las funcionalidades de cartManager y ProductManager
+app.get("/api/carts/:cid", async (req, res) => {
+  try {
+    const cid = req.params.cid;
+    const {encontrado} = await cartManager.getCID(cid);
+    return res.status(200).json({ state: true, carrito: encontrado.products, message: "Lista de productos" });
+  } catch (error) {
+    if(error.message.includes("No se encontró")) return res.status(404).json({state: false, message: error.message})
+    return res.status(500).json({ state: false, message: error.message });
+  }
+});
 
-/* const producto1 = new Product("ps5","Consola","ps52023",100,true,2,"E",["Url falsa"])
-const producto2 = new Product("Xbox Series X","Consola","xbox2023",120,true,5,"E",["Url Xbox"])
-const producto3 = new Product("Nintendo Switch","Consola","switch2023",80,true,3,"E",["Url Nintendo"])
-const producto4 = new Product("iPhone 15","Smartphone","iphone2023",150,true,10,"E",["Url iPhone"])
+app.post("/api/carts/", async (req, res) => {
+  try {
+    const carritos = (await cartManager.addC()).carritos;
+    return res.status(201).json({ state: true, carritos, message: "Carrito Vacio Creado" });
+  } catch (error) {
+    return res.status(500).json({ state: false, message: "No se pudo crear el carrito" });
+  }
+});
 
-await productManager.addProduct(producto1);
-await productManager.addProduct(producto2);
-await productManager.addProduct(producto3);
-await productManager.addProduct(producto4);
-console.table( await productManager.getProducts())
+app.post("/api/carts/:cid/product/:pid", async (req, res) => {
+  try {
+    const cid = req.params.cid;
+    const pid = req.params.pid;
+    const { quantity } = req.body;
+    const carritos = (await cartManager.addProductInCart(cid, pid, quantity)).carritos;
+    return res.status(200).json({ state: true, carritos, message: `Se agrego el producto ${pid} al carrito ${cid}` });
+  } catch (error) {
 
-const canastaProductos1 = new PAndQuantity("f363bba9-4cc0-46e3-af88-62635b25ebdd",2)
-const canastaProductos2 = new PAndQuantity("c439addb-7312-49f2-82c8-aabc24b9ef04",5)
-const canastaProducto3 =  new PAndQuantity("a49bfb0b-1605-4708-a4db-70fae6d10217")
+  if(error.message.includes("Cantidad")) return res.status(400).json({state: false, message: error.message})
+  if(error.message.includes("No se encontró")) return res.status(404).json({state: false, message: error.message})
+  return res.status(500).json({ state: false, message: error.message });
+  }
+});
 
-const carrito1 = new Cart([canastaProductos1,canastaProductos2]);
-const carrito2 = new Cart([canastaProducto3]);
-await cartManager.addC(carrito1);
-await cartManager.addC(carrito2); 
-
-
-await cartManager.addQuantity("03971e9a-45f8-4248-93bb-e1380a876624","a49bfb0b-1605-4708-a4db-70fae6d10217")
-await cartManager.addQuantity("d89dd530-7b29-44fe-ae4a-7b958c6302d4","636ed4cc-76e5-44a7-aea3-87928f40ed56") */
+app.listen(8080, () => {
+  console.log("Servidor iniciado en el puerto 8080");
+});

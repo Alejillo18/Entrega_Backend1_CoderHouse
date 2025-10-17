@@ -1,12 +1,18 @@
 import fs from "fs/promises"
-import { PAndQuantity } from "./cart.js";
-
+import crypto from "crypto"
 
 export default class CartManager{
     constructor(routeC){
         this.routeC = routeC;
         this.initializeC()
     }
+
+
+generarID(){
+    return crypto.randomUUID()
+}
+
+
 //De mismo modo con el carrito
     async initializeC(){
         try{
@@ -26,56 +32,54 @@ export default class CartManager{
         return {state: true, carritos}
         }
         catch(error){
-            console.warn("No se pudieron obtener los datos de los carritos, ERROR: ", error.message)
-            return{state:false, carritos: []}
+            throw new Error("Ocurrio un errro al buscar los datos de todos los carritos, error: " + error.message)
         }
     }
 
     async getCID(cid){
             try{
-            const carritos = (await this.getC()).carritos;
+            const {carritos} = await this.getC();
             const encontrado = carritos.find(u=>u.id === cid);
-            return {state: true, encontrado}
+            if(!encontrado) throw new Error("No existe un carrito con id: "+ cid)
+            return {state: true, encontrado }
             }
             catch(error){
-                console.warn("No se pudieron obtener los datos de los carritos, ERROR: ", error.message)
-                return{state:false, carritos: []}
+                throw new Error("No se encontró el carrito, error: "+ error.message)
             }
     }
 
-    async addC(c){
+    async addC(){
         try{
-            const carritos = (await this.getC()).carritos;
-            carritos.push(c)
+            const {carritos} = await this.getC();
+            const id = this.generarID();
+            carritos.push({id,products : []})
             await fs.writeFile(this.routeC, JSON.stringify(carritos,null,2),"utf-8")
             return{state: true, carritos}
         }
         catch(error){
-            console.warn("No se pudo agregar un carrito, ERRRO: ", error.message)
-            return{state:false, c}
+            throw new Error("No se pudo agregar el nuevo carrito, error: " + error.message)
         }
     }
 
-    async addQuantity(cid,pid){
+    async addProductInCart(cid,pid,quantity){
         try{
-            const carritos = (await this.getC()).carritos;
+            if(quantity <= 0) throw new Error("Cantidad ingresada incorrecta")
+            const {carritos} = await this.getC();
             const carrito = carritos.find(c => c.id === cid);
-            const productoI = carrito.products.findIndex(p => p.pid === pid )
-            if(!carrito) throw new Error("No se encontro un carrito con dicho ID")
+            if(!carrito) throw new Error("No se encontró un carrito con dicho ID")
+            const productoI = carrito.products.findIndex(p => p.id === pid )
             if(productoI === -1)
             {
-                const nuevoProd = new PAndQuantity(pid,1)
-                carrito.products.push(nuevoProd)
+                carrito.products.push({id:pid, quantity})
             }
             else{
-                carrito.products[productoI].quantity += 1;
+                carrito.products[productoI].quantity += quantity;
             }
             await fs.writeFile(this.routeC,JSON.stringify(carritos,null,2),"utf-8");
             return{state:true, carritos}
         }
         catch(error){
-            console.warn("No se encontro el carrito, al cual desea agregar el producto,Error: ", error.message)
-            return{state: false, cid,pid}
+            throw new Error("No se pudo agregar un producto al carrito, error: " + error.message)
         }
     }
 
