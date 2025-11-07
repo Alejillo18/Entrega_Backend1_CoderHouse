@@ -1,15 +1,288 @@
 [
   {
-    "id": "beff7a18-2b1a-48ce-add4-1f697572f8a0",
-    "title": "PlayStation 5",
-    "description": "Consola de videojuegos de última generación con soporte para 4K y SSD ultrarrápido.",
-    "code": "PS5-2020",
-    "price": 799.99,
+    "id": "1",
+    "title": "ASRock Radeon RX 6600 Challenger D 8GB",
+    "description": "Tarjeta gráfica ideal para gaming 1080p. Bajo consumo y buena relación calidad/precio.",
+    "code": "GPU-1",
+    "price": 270000,
+    "status": true,
+    "stock": 15,
+    "category": "gpus",
+    "thumbnails": [
+      "https://www.asrock.com/Graphics-Card/features/DUALFANDESIGN-Radeon%20RX%206600%20Challenger%20D%208GB.jpg"
+    ]
+  },
+  {
+    "id": "2",
+    "title": "MSI Radeon RX 6750 XT MECH 2X 12GB",
+    "description": "GPU potente para gaming en 1440p. Buena ventilación y diseño robusto.",
+    "code": "GPU-2",
+    "price": 400000,
+    "status": true,
+    "stock": 8,
+    "category": "gpus",
+    "thumbnails": [
+      "https://www.invidcomputers.com/images/0000000000414534000338036414534--2-.png"
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Gigabyte GeForce RTX 4060 Eagle OC 8GB",
+    "description": "NVIDIA de nueva generación. DLSS 3 y buena eficiencia para juegos modernos.",
+    "code": "GPU-3",
+    "price": 360000,
+    "status": true,
+    "stock": 12,
+    "category": "gpus",
+    "thumbnails": [
+      "https://cdn.mos.cms.futurecdn.net/G8MKH8mwKgbJ5KBcHpVvee-1200-80.png"
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Intel Core i5-13600K",
+    "description": "Procesador de alto rendimiento para gaming y productividad.",
+    "code": "CPU-4",
+    "price": 320000,
+    "status": true,
+    "stock": 10,
+    "category": "cpus",
+    "thumbnails": [
+      "https://www.achorao.com/cdn/shop/files/intel-procesadores-default-title-procesador-intel-core-i5-13600k-3-50-5-10ghz-24mb-lga-1700-5032037258746-46365339255024_1080x.jpg?v=1738880776"
+    ]
+  },
+  {
+    "id": "5",
+    "title": "AMD Ryzen 7 7800X3D",
+    "description": "Procesador con tecnología 3D V-Cache para máximo rendimiento en gaming.",
+    "code": "CPU-5",
+    "price": 450000,
+    "status": true,
+    "stock": 6,
+    "category": "cpus",
+    "thumbnails": [
+      "https://diamondsystemar.vtexassets.com/arquivos/ids/161726/78003387800_2.jpg.jpg?v=638802506645030000"
+    ]
+  },
+  {
+    "id": "6",
+    "title": "Intel Core i3-12100F",
+    "description": "Procesador económico ideal para builds de entrada.",
+    "code": "CPU-6",
+    "price": 150000,
+    "status": true,
+    "stock": 18,
+    "category": "cpus",
+    "thumbnails": [
+      "https://www.grupocentrotecnologico.com/wp-content/uploads/2022/07/I13-12-GEN.png"
+    ]
+  },
+  {
+    "id": "7",
+    "title": "Corsair Vengeance RGB 32GB DDR5",
+    "description": "Memoria RAM DDR5 de alta velocidad con iluminación RGB.",
+    "code": "RAM-7",
+    "price": 120000,
+    "status": true,
+    "stock": 20,
+    "category": "ram",
+    "thumbnails": [
+      "https://assets.corsair.com/image/upload/c_pad,q_auto,h_1024,w_1024,f_auto/products/Memory/vengeance-rgb-ddr5-wht-config/Gallery/Vengeance-RGB-DDR5-2UP-WHITE_01.webp"
+    ]
+  },
+  {
+    "id": "8",
+    "title": "Kingston Fury Beast 16GB DDR4",
+    "description": "Memoria RAM DDR4 de buen rendimiento y disipador de calor.",
+    "code": "RAM-8",
+    "price": 65000,
     "status": true,
     "stock": 25,
+    "category": "ram",
+    "thumbnails": [
+      "https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/KF432C16BB2A-16_800.jpg"
+    ]
+  },
+  {
+    "id": "9",
+    "title": "G.Skill Trident Z5 64GB DDR5",
+    "description": "Memoria RAM DDR5 de alta gama para entusiastas y creadores de contenido.",
+    "code": "RAM-9",
+    "price": 280000,
+    "status": true,
+    "stock": 7,
+    "category": "ram",
+    "thumbnails": [
+      "https://ar-hard.com.ar/wp-content/uploads/Trident_Z5_Neo_RGB_White_2.jpg"
+    ]
+  },
+  {
+    "id": "10",
+    "title": "ASUS ROG Strix B550-F Gaming",
+    "description": "Placa madre AMD B550 con iluminación RGB y excelente conectividad.",
+    "code": "MOTHER-10",
+    "price": 180000,
+    "status": true,
+    "stock": 12,
+    "category": "mother",
+    "thumbnails": [
+      "https://mexx-img-2019.s3.amazonaws.com/Motherboard-Am4-Asus-Rog-Strix-B550-F-GAMING-WIFI-II_43255_1.jpeg"
+    ]
+  },
+  {
+    "id": "11",
+    "title": "Gigabyte Z790 AORUS Elite AX",
+    "description": "Placa madre Intel Z790 con WiFi 6E y soporte para DDR5.",
+    "code": "MOTHER-11",
+    "price": 280000,
+    "status": true,
+    "stock": 9,
+    "category": "mother",
+    "thumbnails": [
+      "https://www.gigabyte.com/FileUpload/Global/KeyFeature/2181/innergigabyteimages/smartfan601.png"
+    ]
+  },
+  {
+    "id": "12",
+    "title": "MSI MPG B550 Gaming Plus",
+    "description": "Placa madre AMD B550 con diseño robusto y buen sistema de enfriamiento.",
+    "code": "MOTHER-12",
+    "price": 160000,
+    "status": true,
+    "stock": 14,
+    "category": "mother",
+    "thumbnails": [
+      "https://storage-asset.msi.com/global/picture/image/feature/mb/B550/MPG/gaming-plus/msi-mpg-b550-gaming-plus-hero-02.png"
+    ]
+  },
+  {
+    "id": "13",
+    "title": "Corsair RM750x 750W 80 Plus Gold",
+    "description": "Fuente de alimentación modular de alta eficiencia y bajo ruido.",
+    "code": "PSU-13",
+    "price": 140000,
+    "status": true,
+    "stock": 15,
+    "category": "psus",
+    "thumbnails": [
+      "https://www.invidcomputers.com/images/000000000041425071973414250--1-.png"
+    ]
+  },
+  {
+    "id": "14",
+    "title": "Seasonic Focus GX-850 850W",
+    "description": "Fuente de alimentación con excelente regulación de voltaje y componentes japoneses.",
+    "code": "PSU-14",
+    "price": 170000,
+    "status": true,
+    "stock": 8,
+    "category": "psus",
+    "thumbnails": [
+      "https://xtremegames.com.ar/wp-content/uploads/2022/11/imagen-600x600.png"
+    ]
+  },
+  {
+    "id": "15",
+    "title": "EVGA 600 GD 600W 80 Plus Gold",
+    "description": "Fuente de alimentación económica pero con certificación Gold.",
+    "code": "PSU-15",
+    "price": 90000,
+    "status": true,
+    "stock": 20,
+    "category": "psus",
+    "thumbnails": [
+      "https://images.evga.com/products/gallery/png/100-GD-0600-V1_XL_1.png"
+    ]
+  },
+  {
+    "id": "16",
+    "title": "NZXT H510 Flow",
+    "description": "Gabinete de torre media con excelente flujo de aire y diseño minimalista.",
+    "code": "CASE-16",
+    "price": 110000,
+    "status": true,
+    "stock": 13,
+    "category": "cases",
+    "thumbnails": [
+      "https://nzxt.com/cdn/shop/files/h5-elite-hero-black.png?v=1744789660&width=2000"
+    ]
+  },
+  {
+    "id": "17",
+    "title": "Lian Li PC-O11 Dynamic",
+    "description": "Gabinete premium con diseño dual chamber y amplio espacio para watercooling.",
+    "code": "CASE-17",
+    "price": 220000,
+    "status": true,
+    "stock": 6,
+    "category": "cases",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/71b0CSuKkNL._AC_SL1500_.jpg"
+    ]
+  },
+  {
+    "id": "18",
+    "title": "Fractal Design Meshify C",
+    "description": "Gabinete compacto con frente mesh para óptima ventilación.",
+    "code": "CASE-18",
+    "price": 130000,
+    "status": true,
+    "stock": 11,
+    "category": "cases",
+    "thumbnails": [
+      "https://http2.mlstatic.com/D_NQ_NP_833122-MLA31117259936_062019-O.webp"
+    ]
+  },
+  {
+    "id": "19",
+    "title": "Samsung 970 EVO Plus 1TB NVMe",
+    "description": "SSD NVMe de alto rendimiento para gamers y profesionales.",
+    "code": "STORAGE-19",
+    "price": 120000,
+    "status": true,
+    "stock": 18,
+    "category": "storages",
+    "thumbnails": [
+      "https://images.samsung.com/is/image/samsung/p6pim/es/mz-v8v1t0bw/gallery/es-980-nvme-m2-ssd-mz-v8v1t0bw-thumb-503512991?$UX_EXT1_PNG$"
+    ]
+  },
+  {
+    "id": "20",
+    "title": "WD Blue SN570 1TB NVMe",
+    "description": "SSD NVMe económico pero con buen rendimiento para uso general.",
+    "code": "STORAGE-20",
+    "price": 85000,
+    "status": true,
+    "stock": 22,
+    "category": "storages",
+    "thumbnails": [
+      "https://acdn-us.mitiendanube.com/stores/001/230/866/products/wdc-wdblue-sn570_prod-img-straight-front-1tb1-b08f1518a9b67674de16841633353520-1024-1024.png"
+    ]
+  },
+  {
+    "id": "0f7d93f6-3600-4daf-8f67-ab1969a9431f",
+    "title": "Seagate BarraCuda 2TB HDD",
+    "description": "Disco duro convencional para almacenamiento masivo económico.",
+    "code": "STORAGE-21",
+    "price": 50000,
+    "status": true,
+    "stock": 30,
+    "category": "storages",
+    "thumbnails": [
+      "https://fullh4rd.com.ar/img/productos/12/hd-hdd-2tb-seagate-barracuda-sata-iii-35-0.jpg"
+    ]
+  },
+  {
+    "id": "0f9b45be-25e3-4608-990e-583d62dc9ecd",
+    "title": "PlayStation 5",
+    "description": "Consola de videojuegos de última generación con soporte para 4K y SSD ultrarrápido.",
+    "code": "PS5-2021",
+    "price": 800000,
+    "status": true,
+    "stock": 10,
     "category": "Consolas",
     "thumbnails": [
-      "https://example.com/images/ps5_front.jpg"
+      "https://www.sagitariodigital.com.ar/wp-content/uploads/2024/01/ps5-slim-digital-1.jpg"
     ]
   }
 ]

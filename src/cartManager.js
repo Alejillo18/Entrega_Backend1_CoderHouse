@@ -13,7 +13,6 @@ generarID(){
 }
 
 
-//De mismo modo con el carrito
     async initializeC(){
         try{
             await fs.access(this.routeC)

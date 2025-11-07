@@ -11,7 +11,6 @@ generateID(){
     return crypto.randomUUID()
 }
 
-//Validar que se ingresen todos los datos y sean de tipos de datos correctos
  validarProduct(product) {
     if (typeof product !== 'object' || product === null || Array.isArray(product))throw new Error('El producto debe ser un objeto válido');
     try{
@@ -61,7 +60,6 @@ generateID(){
   
 }
 
-//Valido las actualizaciones
  validarCambios(updates){
     try{
         if (typeof updates !== 'object' || updates === null || Array.isArray(updates)|| Object.keys(updates).length === 0) throw new Error('El objeto recibido debe ser un objeto válido');
@@ -91,8 +89,6 @@ generateID(){
 
 }
 
-//Realice un metodo que lee el archivo si existe,
-//  caso contrario lo crea con un array vacio
     async iniciatilizeProducts(){
         try{
             await fs.access(this.routeP)
